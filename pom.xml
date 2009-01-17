@@ -11,6 +11,8 @@
   <packaging>maven-plugin</packaging>
   <version>0.0.1-SNAPSHOT</version>
   
+  <name>maven-properties-plugin</name>
+
   <properties>
     <maven-version>2.0.9</maven-version>
   </properties>
