@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -10,13 +11,13 @@
   <artifactId>maven-properties-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <version>0.0.2-SNAPSHOT</version>
-  
+
   <name>maven-properties-plugin</name>
 
   <properties>
     <maven-version>2.0.9</maven-version>
   </properties>
-  
+
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
@@ -26,15 +27,15 @@
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-interpolation</artifactId>
-      <version>1.3</version>
+      <version>1.11</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.shared</groupId>
       <artifactId>maven-filtering</artifactId>
-      <version>1.0-beta-1</version>
+      <version>1.0-beta-2</version>
     </dependency>
   </dependencies>
-  
+
   <build>
     <plugins>
       <plugin>
@@ -47,11 +48,9 @@
       </plugin>
     </plugins>
   </build>
-<!--   
-  <distributionManagement>
-    <snapshotRepository>
-      <uniqueVersion>true</uniqueVersion>
-    </snapshotRepository>
-  </distributionManagement>
--->
+  <!--
+    <distributionManagement> <snapshotRepository>
+    <uniqueVersion>true</uniqueVersion> </snapshotRepository>
+    </distributionManagement>
+  -->
 </project>
