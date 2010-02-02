@@ -16,8 +16,10 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.shared.filtering.MavenProjectValueSource;
+import org.apache.maven.settings.Settings;
 import org.codehaus.plexus.interpolation.InterpolationException;
+import org.codehaus.plexus.interpolation.PrefixedObjectValueSource;
+import org.codehaus.plexus.interpolation.SingleResponseValueSource;
 import org.codehaus.plexus.interpolation.StringSearchInterpolator;
 import org.codehaus.plexus.interpolation.ValueSource;
 
@@ -66,8 +68,12 @@ public class FilterPropertiesFileMojo
             baseProps.putAll( mavenSession.getExecutionProperties() );
         }
 
+        Settings settings = mavenSession.getSettings();
+
         StringSearchInterpolator interpolator = new StringSearchInterpolator();
-        interpolator.addValueSource( new MavenProjectValueSource( mavenProject, false /* escapedBackslashesInFilePath */) );
+        interpolator.addValueSource( new PrefixedObjectValueSource( "project", mavenProject ) );
+        interpolator.addValueSource( new PrefixedObjectValueSource( "settings", settings ) );
+        interpolator.addValueSource( new SingleResponseValueSource( "localRepository", settings.getLocalRepository() ) );
         interpolator.addValueSource( new ValueSource()
         {
             public Object getValue( String expression )
