@@ -2,7 +2,6 @@ package org.sonatype.plugins.properties;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -22,6 +21,7 @@ import org.codehaus.plexus.interpolation.PrefixedObjectValueSource;
 import org.codehaus.plexus.interpolation.SingleResponseValueSource;
 import org.codehaus.plexus.interpolation.StringSearchInterpolator;
 import org.codehaus.plexus.interpolation.ValueSource;
+import org.sonatype.plexus.build.incremental.BuildContext;
 
 /**
  * @goal filter-file
@@ -54,9 +54,17 @@ public class FilterPropertiesFileMojo
      */
     private File outDir;
 
+    /** @component */
+    protected BuildContext context;
+    
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
+        
+        if ( !context.hasDelta( in ) )
+        {
+            return;
+        }
 
         final Properties baseProps = new Properties();
         if ( mavenProject.getProperties() != null )
@@ -111,7 +119,7 @@ public class FilterPropertiesFileMojo
                 entry.setValue( interpolator.interpolate( value ) );
             }
 
-            OutputStream os = new FileOutputStream( new File( outDir, in.getName() ) );
+            OutputStream os = context.newFileOutputStream( new File( outDir, in.getName() ) );
             try
             {
                 p.store( os, null );
